@@ -1,0 +1,48 @@
+eureka : 
+  client:
+    serviceUrl:
+      defaultZone:  http://47.52.196.33:8761/eureka/
+  instance:
+    # 是否使用ip注册
+    prefer-ip-address : true
+    # ${spring.cloud.client.ip-address}:${server.port}  局域网这样配置
+    #  本地调试则要直接写死ip 【这个ip为注册时候的 调用ip】
+    instance-id : 47.52.196.33:${server.port}
+    # 注册ip地址 公网注册地址 47.52.108.99
+    ip-address :  47.52.196.33
+    # 注册ip端口
+    non-secure-port : ${server.port}
+    hostname : 47.52.196.33:${server.port}
+   # status-page-url : c.biancheng.net
+spring:
+  application:
+    name: otc-zuul-server
+zuul:
+  strip-prefix: false
+  routes:
+    api-a:
+      path: /api-homex/**
+      serviceId: otc-alipay-server
+  host:
+    maxTotalConnections: 6000000
+    maxPerRouteConnections: 600000
+  max:
+    host:
+      connections: 1000000
+ribbon:
+  ReadTimeout: 6000000
+  ConnectTimeout: 6000000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+hystrix:
+  command:
+    c4i-store:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 6000000
+            ribbon:
+              ReadTimeout: 600000
+              ConnectTimeout: 600000

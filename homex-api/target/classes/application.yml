@@ -1,0 +1,79 @@
+server:
+  session:
+    store-type: redis
+    #  timeout: 3600s
+    redis:
+      flush-mode: on_save
+      namespace: spring:session
+  tomcat :
+     url-encoding : UTF-8
+eureka : 
+  client:
+    serviceUrl:
+      defaultZone:  http://47.52.196.33:8761/eureka/
+  instance:
+    # 是否使用ip注册
+    prefer-ip-address : true
+    # ${spring.cloud.client.ip-address}:${server.port}  局域网这样配置
+    #  本地调试则要直接写死ip 【这个ip为注册时候的 调用ip】
+    instance-id : 47.52.196.33:${server.port}
+    # 注册ip地址 公网注册地址 47.52.108.99
+    ip-address :  47.52.196.33
+    # 注册ip端口
+    non-secure-port : ${server.port}
+    hostname : 47.52.196.33:${server.port}
+   # status-page-url : c.biancheng.net
+spring:
+   application:
+    name: homex-api
+   cloud:
+    config:
+      label: master
+      profile: dev
+      discovery:
+        enabled:  true
+        serviceId:  homex-api
+    bus:
+      enabled: true
+      trace:
+        enabled: true
+   datasource:
+    url: jdbc:mysql://47.52.196.33:3306/homex?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: homexPasswordPhilippines
+    driverClassName: com.mysql.jdbc.Driver
+    hikari:
+       connection-test-query: SELECT 1 FROM DUAL
+       connection-timeout: 600000
+       maximum-pool-size: 500
+       max-lifetime: 1800000
+       minimum-idle: 20
+       validation-timeout: 3000
+       idle-timeout: 60000
+       connection-init-sql: SET NAMES utf8mb4
+   redis:
+    port: 6379
+    host: 127.0.0.1
+    timeout: 5000
+    pool:
+        max-idle : 100
+        min-idle : 10
+        max-active : 1000
+        max-wait : -1
+   http :
+      encoding :
+         force : true
+         charset : UTF-8
+         enabled : true
+   servlet :
+     multipart : 
+        max-file-size : 100MB
+        max-request-size : 100MB
+   session:
+    store-type: redis
+    timeout: 7200s
+#断路器开启
+feign.hystrix.enabled: true  
+logging:
+  level:
+      alipay.*: debug   
