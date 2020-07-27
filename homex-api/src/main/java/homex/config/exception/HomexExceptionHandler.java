@@ -6,7 +6,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import homex.common.Bean.Result;
+import homex.common.bean.Result;
 @RestControllerAdvice
 public class HomexExceptionHandler {
 	public static final Logger log = LoggerFactory.getLogger(HomexExceptionHandler.class);

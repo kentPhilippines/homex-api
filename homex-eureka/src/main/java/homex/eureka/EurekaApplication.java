@@ -5,6 +5,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
 import cn.hutool.core.util.NetUtil;
+import cn.hutool.log.LogFactory;
 
 /**
  * <p>服务注册中心</p>

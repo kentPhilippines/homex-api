@@ -21,8 +21,8 @@ zuul:
   strip-prefix: false
   routes:
     api-a:
-      path: /api-homex/**
-      serviceId: otc-alipay-server
+      path: /homex-api/**
+      serviceId: homex-api
   host:
     maxTotalConnections: 6000000
     maxPerRouteConnections: 600000

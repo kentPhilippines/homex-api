@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
-import homex.common.Bean.Result;
+import homex.common.bean.Result;
 /**
  * <p>对密码进行加密</p>
  * @author kent

@@ -26,7 +26,7 @@
 		</commentGenerator>
 		<!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-						connectionURL="jdbc:mysql://47.52.196.33:3306/homex?serverTimezone=UTC"
+						connectionURL="jdbc:mysql://47.52.196.33:3306/home?serverTimezone=UTC"
 						userId="root"
 						password="homexPasswordPhilippines">
 		</jdbcConnection>
@@ -41,7 +41,7 @@
 		<javaTypeResolver>
 			<property name="forceBigDecimals" value="false" />
 		</javaTypeResolver>
-
+    
 		<!-- targetProject:生成PO类的位置 -->
 		<javaModelGenerator targetPackage="homex.bean" 
 							targetProject="src/main/java">
@@ -98,17 +98,60 @@
         13，modelType：参考context元素的defaultModelType，相当于覆盖；
         14，delimitIdentifiers：参考tableName的解释，注意，默认的delimitIdentifiers是双引号，如果类似MYSQL这样的数据库，使用的是`（反引号，那么还需要设置context的beginningDelimiter和endingDelimiter属性）
         15，delimitAllColumns：设置是否所有生成的SQL中的列名都使用标识符引起来。默认为false，delimitIdentifiers参考context的属性
-        
         注意，table里面很多参数都是对javaModelGenerator，context等元素的默认属性的一个复写；
      -->
-           <!-- <property name="useActualColumnNames" value="false"/>-->
-         
-             <table tableName="sys_user" domainObjectName="User"   enableCountByExample="true"  enableUpdateByExample="true"  enableDeleteByExample="true"  enableSelectByExample="true"  selectByExampleQueryId="true">
+             <table tableName="home_user" 
+			             domainObjectName="UserEntity"   
+			             enableCountByExample="true"  
+			             enableUpdateByExample="true"  
+			             enableDeleteByExample="true"  
+			             enableSelectByExample="true"  
+			             enableSelectByPrimaryKey="true"  
+			             selectByExampleQueryId="true">
                     <property name="my.isgen.usekeys" value="true"/>
-                    <property name="useActualColumnNames" value="true"/>
                     <generatedKey column="id" sqlStatement="JDBC"/>
             </table> 
          
+             <table tableName="home_code" domainObjectName="CodeEntity"   
+             enableCountByExample="true"  enableUpdateByExample="true"  enableDeleteByExample="true"  enableSelectByExample="true"  selectByExampleQueryId="true">
+                    <property name="my.isgen.usekeys" value="true"/>
+                    <generatedKey column="id" sqlStatement="JDBC"/>
+            </table> 
+         
+             <table tableName="home_condo" domainObjectName="CondoEntity"   
+             enableCountByExample="true"  enableUpdateByExample="true"  enableDeleteByExample="true"  enableSelectByExample="true"  selectByExampleQueryId="true">
+                    <property name="my.isgen.usekeys" value="true"/>
+                    <generatedKey column="id" sqlStatement="JDBC"/>
+            </table> 
+         
+         
+             <table tableName="home_condo_tower" domainObjectName="CondoTowerEntity"   enableCountByExample="true"  enableUpdateByExample="true"  enableDeleteByExample="true"  enableSelectByExample="true"  selectByExampleQueryId="true">
+                    <property name="my.isgen.usekeys" value="true"/>
+                    <generatedKey column="id" sqlStatement="JDBC"/>
+            </table> 
+             <table tableName="home_notice" domainObjectName="NoticeEntity"   enableCountByExample="true"  enableUpdateByExample="true"  enableDeleteByExample="true"  enableSelectByExample="true"  selectByExampleQueryId="true">
+                    <property name="my.isgen.usekeys" value="true"/>
+                    <generatedKey column="id" sqlStatement="JDBC"/>
+            </table> 
+             <table tableName="home_query_map" domainObjectName="QueryMapEntity"   enableCountByExample="true"  enableUpdateByExample="true"  enableDeleteByExample="true"  enableSelectByExample="true"  selectByExampleQueryId="true">
+                    <property name="my.isgen.usekeys" value="true"/>
+                    <generatedKey column="id" sqlStatement="JDBC"/>
+            </table> 
+             <table tableName="home_todo" domainObjectName="TodoEntity"   enableCountByExample="true"  enableUpdateByExample="true"  enableDeleteByExample="true"  enableSelectByExample="true"  selectByExampleQueryId="true">
+                    <property name="my.isgen.usekeys" value="true"/>
+                    <generatedKey column="id" sqlStatement="JDBC"/>
+            </table> 
+         
+       <!--       <table tableName="home_todo" domainObjectName="TodoEntity"   enableCountByExample="true"  enableUpdateByExample="true"  enableDeleteByExample="true"  enableSelectByExample="true"  selectByExampleQueryId="true">
+                    <property name="my.isgen.usekeys" value="true"/>
+                    <property name="useActualColumnNames" value="false"/>
+                    <generatedKey column="id" sqlStatement="JDBC"/>
+            </table>  -->
+        <!--  <table tableName="product_qrcode_running" domainObjectName="QrcodeRuning"   enableCountByExample="true"  enableUpdateByExample="true"  enableDeleteByExample="true"  enableSelectByExample="true"  selectByExampleQueryId="true">
+                    <property name="my.isgen.usekeys" value="true"/>
+                    <property name="useActualColumnNames" value="true"/>
+                    <generatedKey column="id" sqlStatement="JDBC"/>
+            </table>  -->
              
             
             

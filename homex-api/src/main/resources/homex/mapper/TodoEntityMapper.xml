@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="homex.mapper.TodoEntityMapper" >
+  <resultMap id="BaseResultMap" type="homex.bean.TodoEntity" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="todo_id" property="todoId" jdbcType="VARCHAR" />
+    <result column="author_id" property="authorId" jdbcType="VARCHAR" />
+    <result column="condo_id" property="condoId" jdbcType="VARCHAR" />
+    <result column="to_tower" property="toTower" jdbcType="VARCHAR" />
+    <result column="unit_max" property="unitMax" jdbcType="VARCHAR" />
+    <result column="unit_min" property="unitMin" jdbcType="VARCHAR" />
+    <result column="subject" property="subject" jdbcType="VARCHAR" />
+    <result column="todo_status" property="todoStatus" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="homex.bean.TodoEntity" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, todo_id, author_id, condo_id, to_tower, unit_max, unit_min, subject, todo_status, 
+    create_time, update_time, status
+  </sql>
+  <sql id="Blob_Column_List" >
+    content, remark
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="homex.bean.TodoEntityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from home_todo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="homex.bean.TodoEntityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from home_todo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from home_todo
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from home_todo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="homex.bean.TodoEntityExample" >
+    delete from home_todo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="homex.bean.TodoEntity" useGeneratedKeys="true" keyProperty="id" >
+    insert into home_todo (todo_id, author_id, condo_id, 
+      to_tower, unit_max, unit_min, 
+      subject, todo_status, create_time, 
+      update_time, status, content, 
+      remark)
+    values (#{todoId,jdbcType=VARCHAR}, #{authorId,jdbcType=VARCHAR}, #{condoId,jdbcType=VARCHAR}, 
+      #{toTower,jdbcType=VARCHAR}, #{unitMax,jdbcType=VARCHAR}, #{unitMin,jdbcType=VARCHAR}, 
+      #{subject,jdbcType=VARCHAR}, #{todoStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR}, 
+      #{remark,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="homex.bean.TodoEntity" useGeneratedKeys="true" keyProperty="id" >
+    insert into home_todo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="todoId != null" >
+        todo_id,
+      </if>
+      <if test="authorId != null" >
+        author_id,
+      </if>
+      <if test="condoId != null" >
+        condo_id,
+      </if>
+      <if test="toTower != null" >
+        to_tower,
+      </if>
+      <if test="unitMax != null" >
+        unit_max,
+      </if>
+      <if test="unitMin != null" >
+        unit_min,
+      </if>
+      <if test="subject != null" >
+        subject,
+      </if>
+      <if test="todoStatus != null" >
+        todo_status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="todoId != null" >
+        #{todoId,jdbcType=VARCHAR},
+      </if>
+      <if test="authorId != null" >
+        #{authorId,jdbcType=VARCHAR},
+      </if>
+      <if test="condoId != null" >
+        #{condoId,jdbcType=VARCHAR},
+      </if>
+      <if test="toTower != null" >
+        #{toTower,jdbcType=VARCHAR},
+      </if>
+      <if test="unitMax != null" >
+        #{unitMax,jdbcType=VARCHAR},
+      </if>
+      <if test="unitMin != null" >
+        #{unitMin,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null" >
+        #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="todoStatus != null" >
+        #{todoStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="homex.bean.TodoEntityExample" resultType="java.lang.Integer" >
+    select count(*) from home_todo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update home_todo
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.todoId != null" >
+        todo_id = #{record.todoId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.authorId != null" >
+        author_id = #{record.authorId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.condoId != null" >
+        condo_id = #{record.condoId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.toTower != null" >
+        to_tower = #{record.toTower,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitMax != null" >
+        unit_max = #{record.unitMax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitMin != null" >
+        unit_min = #{record.unitMin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subject != null" >
+        subject = #{record.subject,jdbcType=VARCHAR},
+      </if>
+      <if test="record.todoStatus != null" >
+        todo_status = #{record.todoStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update home_todo
+    set id = #{record.id,jdbcType=INTEGER},
+      todo_id = #{record.todoId,jdbcType=VARCHAR},
+      author_id = #{record.authorId,jdbcType=VARCHAR},
+      condo_id = #{record.condoId,jdbcType=VARCHAR},
+      to_tower = #{record.toTower,jdbcType=VARCHAR},
+      unit_max = #{record.unitMax,jdbcType=VARCHAR},
+      unit_min = #{record.unitMin,jdbcType=VARCHAR},
+      subject = #{record.subject,jdbcType=VARCHAR},
+      todo_status = #{record.todoStatus,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER},
+      content = #{record.content,jdbcType=LONGVARCHAR},
+      remark = #{record.remark,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update home_todo
+    set id = #{record.id,jdbcType=INTEGER},
+      todo_id = #{record.todoId,jdbcType=VARCHAR},
+      author_id = #{record.authorId,jdbcType=VARCHAR},
+      condo_id = #{record.condoId,jdbcType=VARCHAR},
+      to_tower = #{record.toTower,jdbcType=VARCHAR},
+      unit_max = #{record.unitMax,jdbcType=VARCHAR},
+      unit_min = #{record.unitMin,jdbcType=VARCHAR},
+      subject = #{record.subject,jdbcType=VARCHAR},
+      todo_status = #{record.todoStatus,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="homex.bean.TodoEntity" >
+    update home_todo
+    <set >
+      <if test="todoId != null" >
+        todo_id = #{todoId,jdbcType=VARCHAR},
+      </if>
+      <if test="authorId != null" >
+        author_id = #{authorId,jdbcType=VARCHAR},
+      </if>
+      <if test="condoId != null" >
+        condo_id = #{condoId,jdbcType=VARCHAR},
+      </if>
+      <if test="toTower != null" >
+        to_tower = #{toTower,jdbcType=VARCHAR},
+      </if>
+      <if test="unitMax != null" >
+        unit_max = #{unitMax,jdbcType=VARCHAR},
+      </if>
+      <if test="unitMin != null" >
+        unit_min = #{unitMin,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null" >
+        subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="todoStatus != null" >
+        todo_status = #{todoStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="homex.bean.TodoEntity" >
+    update home_todo
+    set todo_id = #{todoId,jdbcType=VARCHAR},
+      author_id = #{authorId,jdbcType=VARCHAR},
+      condo_id = #{condoId,jdbcType=VARCHAR},
+      to_tower = #{toTower,jdbcType=VARCHAR},
+      unit_max = #{unitMax,jdbcType=VARCHAR},
+      unit_min = #{unitMin,jdbcType=VARCHAR},
+      subject = #{subject,jdbcType=VARCHAR},
+      todo_status = #{todoStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR},
+      remark = #{remark,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="homex.bean.TodoEntity" >
+    update home_todo
+    set todo_id = #{todoId,jdbcType=VARCHAR},
+      author_id = #{authorId,jdbcType=VARCHAR},
+      condo_id = #{condoId,jdbcType=VARCHAR},
+      to_tower = #{toTower,jdbcType=VARCHAR},
+      unit_max = #{unitMax,jdbcType=VARCHAR},
+      unit_min = #{unitMin,jdbcType=VARCHAR},
+      subject = #{subject,jdbcType=VARCHAR},
+      todo_status = #{todoStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

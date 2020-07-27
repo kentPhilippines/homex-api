@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="homex.mapper.CondoTowerEntityMapper" >
+  <resultMap id="BaseResultMap" type="homex.bean.CondoTowerEntity" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="condo_id" property="condoId" jdbcType="VARCHAR" />
+    <result column="condo_name" property="condoName" jdbcType="VARCHAR" />
+    <result column="tower_id" property="towerId" jdbcType="VARCHAR" />
+    <result column="tower_name" property="towerName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="updata_time" property="updataTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="homex.bean.CondoTowerEntity" extends="BaseResultMap" >
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, condo_id, condo_name, tower_id, tower_name, create_time, updata_time, status
+  </sql>
+  <sql id="Blob_Column_List" >
+    remark
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="homex.bean.CondoTowerEntityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from home_condo_tower
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="homex.bean.CondoTowerEntityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from home_condo_tower
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from home_condo_tower
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from home_condo_tower
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="homex.bean.CondoTowerEntityExample" >
+    delete from home_condo_tower
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="homex.bean.CondoTowerEntity" useGeneratedKeys="true" keyProperty="id" >
+    insert into home_condo_tower (condo_id, condo_name, tower_id, 
+      tower_name, create_time, updata_time, 
+      status, remark)
+    values (#{condoId,jdbcType=VARCHAR}, #{condoName,jdbcType=VARCHAR}, #{towerId,jdbcType=VARCHAR}, 
+      #{towerName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updataTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER}, #{remark,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="homex.bean.CondoTowerEntity" useGeneratedKeys="true" keyProperty="id" >
+    insert into home_condo_tower
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="condoId != null" >
+        condo_id,
+      </if>
+      <if test="condoName != null" >
+        condo_name,
+      </if>
+      <if test="towerId != null" >
+        tower_id,
+      </if>
+      <if test="towerName != null" >
+        tower_name,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updataTime != null" >
+        updata_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="condoId != null" >
+        #{condoId,jdbcType=VARCHAR},
+      </if>
+      <if test="condoName != null" >
+        #{condoName,jdbcType=VARCHAR},
+      </if>
+      <if test="towerId != null" >
+        #{towerId,jdbcType=VARCHAR},
+      </if>
+      <if test="towerName != null" >
+        #{towerName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updataTime != null" >
+        #{updataTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="homex.bean.CondoTowerEntityExample" resultType="java.lang.Integer" >
+    select count(*) from home_condo_tower
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update home_condo_tower
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.condoId != null" >
+        condo_id = #{record.condoId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.condoName != null" >
+        condo_name = #{record.condoName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.towerId != null" >
+        tower_id = #{record.towerId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.towerName != null" >
+        tower_name = #{record.towerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updataTime != null" >
+        updata_time = #{record.updataTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update home_condo_tower
+    set id = #{record.id,jdbcType=INTEGER},
+      condo_id = #{record.condoId,jdbcType=VARCHAR},
+      condo_name = #{record.condoName,jdbcType=VARCHAR},
+      tower_id = #{record.towerId,jdbcType=VARCHAR},
+      tower_name = #{record.towerName,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      updata_time = #{record.updataTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update home_condo_tower
+    set id = #{record.id,jdbcType=INTEGER},
+      condo_id = #{record.condoId,jdbcType=VARCHAR},
+      condo_name = #{record.condoName,jdbcType=VARCHAR},
+      tower_id = #{record.towerId,jdbcType=VARCHAR},
+      tower_name = #{record.towerName,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      updata_time = #{record.updataTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="homex.bean.CondoTowerEntity" >
+    update home_condo_tower
+    <set >
+      <if test="condoId != null" >
+        condo_id = #{condoId,jdbcType=VARCHAR},
+      </if>
+      <if test="condoName != null" >
+        condo_name = #{condoName,jdbcType=VARCHAR},
+      </if>
+      <if test="towerId != null" >
+        tower_id = #{towerId,jdbcType=VARCHAR},
+      </if>
+      <if test="towerName != null" >
+        tower_name = #{towerName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updataTime != null" >
+        updata_time = #{updataTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="homex.bean.CondoTowerEntity" >
+    update home_condo_tower
+    set condo_id = #{condoId,jdbcType=VARCHAR},
+      condo_name = #{condoName,jdbcType=VARCHAR},
+      tower_id = #{towerId,jdbcType=VARCHAR},
+      tower_name = #{towerName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updata_time = #{updataTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="homex.bean.CondoTowerEntity" >
+    update home_condo_tower
+    set condo_id = #{condoId,jdbcType=VARCHAR},
+      condo_name = #{condoName,jdbcType=VARCHAR},
+      tower_id = #{towerId,jdbcType=VARCHAR},
+      tower_name = #{towerName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updata_time = #{updataTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

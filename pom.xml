@@ -59,6 +59,12 @@
             <version>20.0</version>
         </dependency>
     </dependencies>
+  <modules>
+  	<module>homex-api</module>
+  	<module>homex-common</module>
+  	<module>homex-eureka</module>
+  	<module>homex-zuul</module>
+  </modules>
       <dependencyManagement>
         <dependencies>
             <dependency>
@@ -70,6 +76,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
     <pluginRepositories>
 		<pluginRepository>
 			<id>spring-snapshots</id>

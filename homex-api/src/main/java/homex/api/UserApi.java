@@ -1,12 +1,11 @@
 package homex.api;
 
-import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import homex.common.Bean.Result;
+import homex.common.bean.Result;
 import homex.common.framework.BaseController;
 import homex.service.LoginService;
 import homex.service.UserService;
@@ -75,7 +74,8 @@ public class UserApi extends BaseController{
 			, String userPhone 
 			, String password 
 			) {
-				return null;
+		Result user = userServiceImpl.editAccount(userID,userName,userAvtar,userEmail,userPhone,password);
+		return user;
 	}
 	
 	
