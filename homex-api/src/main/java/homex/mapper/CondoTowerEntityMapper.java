@@ -4,6 +4,8 @@ import homex.bean.CondoTowerEntity;
 import homex.bean.CondoTowerEntityExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 public interface CondoTowerEntityMapper {
     int countByExample(CondoTowerEntityExample example);
@@ -33,4 +35,11 @@ public interface CondoTowerEntityMapper {
     int updateByPrimaryKeyWithBLOBs(CondoTowerEntity record);
 
     int updateByPrimaryKey(CondoTowerEntity record);
+
+    @Select("select count(1) from home_condo_tower where tower_id = #{condotower} ")
+	int findCondoTowerId(@Param("condotower") String condotower);
+
+    
+    @Update("update home_condo_tower  set condo_name = #{condoName} where condo_id = #{condoId}")
+	int updateCondoName(@Param("condoId") String condoId,@Param("condoName")  String condoName);
 }

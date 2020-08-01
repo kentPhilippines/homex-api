@@ -1,20 +1,17 @@
 package homex.bean;
 
 import java.util.Date;
-
+/**
+ * <p>公寓标签数据</p>
+ * @author kent
+ */
 public class CondoEntity {
     private Integer id;
-
     private String condoId;
-
     private String condoName;
-
     private Date createTime;
-
     private Date updataTime;
-
     private Integer status;
-
     private String remark;
 
     public Integer getId() {

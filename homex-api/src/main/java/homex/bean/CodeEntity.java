@@ -2,6 +2,7 @@ package homex.bean;
 
 import java.util.Date;
 
+
 public class CodeEntity {
     private Integer id;
 

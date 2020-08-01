@@ -11,7 +11,7 @@ public class TableSupport {
 	/**
 	 * 当前记录起始索引
 	 */
-	public static final String PAGE_NUM = "pageNum";
+	public static final String PAGE_NUM = "currentPage";
 
 	/**
 	 * 每页显示记录数

@@ -4,23 +4,14 @@ import java.util.Date;
 
 public class CondoTowerEntity {
     private Integer id;
-
     private String condoId;
-
     private String condoName;
-
     private String towerId;
-
     private String towerName;
-
     private Date createTime;
-
     private Date updataTime;
-
     private Integer status;
-
     private String remark;
-
     public Integer getId() {
         return id;
     }

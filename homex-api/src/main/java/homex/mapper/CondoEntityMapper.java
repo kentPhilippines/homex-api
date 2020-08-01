@@ -4,6 +4,8 @@ import homex.bean.CondoEntity;
 import homex.bean.CondoEntityExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 public interface CondoEntityMapper {
     int countByExample(CondoEntityExample example);
@@ -33,4 +35,18 @@ public interface CondoEntityMapper {
     int updateByPrimaryKeyWithBLOBs(CondoEntity record);
 
     int updateByPrimaryKey(CondoEntity record);
+
+    
+    /**
+     * <p>根据公寓名查看是否存在该公寓</p>
+     * @param condo
+     * @return
+     */
+    @Select("select count(1) from home_condo where condo_id = #{condo}")
+	int findCondoId(@Param("condo")  String condo);
+    @Select("select count(1) from home_condo where condo_name = #{condoName}")
+    int findCondoName(@Param("condoName")  String condoName);
+
+    @Update("update home_condo set condo_name = #{condoName} where  condo_id  = #{condoId}")
+	int updateCondoName(@Param("condoId") String condoId,@Param("condoName") String condoName);
 }
