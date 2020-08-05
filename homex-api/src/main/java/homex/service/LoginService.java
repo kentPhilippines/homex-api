@@ -17,6 +17,7 @@ import homex.util.HashKit;
 @Component
 public class LoginService extends BaseService{
 	@Autowired UserEntityMapper userDao;
+	@Autowired QueryMapService queryMapServiceImpl;
 	/**
 	 * <p>登录校验</p>
 	 * @param username			账户名【初版为邮箱】
@@ -54,9 +55,11 @@ public class LoginService extends BaseService{
 	 * @param email				邮箱
 	 * @param password			密码
 	 * @param role				角色
+	 * @param tower 
+	 * @param userID 
 	 * @return
 	 */
-	public Result resiger(String name, String mobile, String email, String password, String role) {
+	public Result resiger(String name, String mobile, String email, String password, String role, String tower, String userID) {
 		if( 	StrUtil.isBlank(role)
 				||StrUtil.isBlank(name)
 				||StrUtil.isBlank(mobile)
@@ -76,7 +79,11 @@ public class LoginService extends BaseService{
 			return Result.buildFailMessage("密钥生成失败");
 		password = encodePassword.getResult().toString();
 		user.setUserPassword(password);
+		if(  StrUtil.isNotBlank(tower)) 
+			user.setCreateBy(userID);
 		int insertSelective = userDao.insertSelective(user);
+		if(  StrUtil.isNotBlank(tower) && insertSelective > 0) 
+			queryMapServiceImpl.addMapByTower(user.getUserId(), userID, tower);
 		if(insertSelective == 1)
 			return Result.buildSuccessMessage("注册成功");
 		return  Result.buildFailMessage("注册失败");

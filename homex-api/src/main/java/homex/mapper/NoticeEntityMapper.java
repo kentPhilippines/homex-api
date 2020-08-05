@@ -3,7 +3,10 @@ package homex.mapper;
 import homex.bean.NoticeEntity;
 import homex.bean.NoticeEntityExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface NoticeEntityMapper {
     int countByExample(NoticeEntityExample example);
@@ -33,4 +36,40 @@ public interface NoticeEntityMapper {
     int updateByPrimaryKeyWithBLOBs(NoticeEntity record);
 
     int updateByPrimaryKey(NoticeEntity record);
+
+	 List<NoticeEntity> findNoticeByAuthor(String userId);
+
+	 /**
+	  * 通过condo查询notice
+	  * @param userId
+	  * @return
+	  */
+	 @Select("select * from home_notice where condo_id = #{userId} ")
+	List<NoticeEntity> findNoticeByCondo(@Param("userId")  String userId);
+
+	 /**
+	  * <p>前台人员查询notice,查询到自己发布的和属于自己的</p>
+	  * @param userId
+	  * @param condo
+	  * @param tower
+	  * @return
+	  */
+	 @Select(""
+	 		+ "select * from home_notice where condo_id = #{condo} and  to_tower = #{tower} "
+	 		+ "union all"
+	 		+ "select * from home_notice where author_id = #{userId} "
+	 		)
+	List<NoticeEntity> findNoticeByTower(@Param("userId") String userId,@Param("condo") String condo,@Param("tower") String tower);
+
+	 /**
+	  * <p>unit角色查询</p>
+	  * @param condo			condoId
+	  * @param tower			tower
+	  * @return
+	  */
+	 @Select("select * from home_notice where condo_id = #{condo} and  to_tower = #{tower}")
+	List<NoticeEntity> findNoticeByUnit(@Param("condo")  String condo,@Param("tower")  String tower);
+
+	@Delete("delete from home_notice  where notice_id = #{noticeId}")
+	int deleteNoticeId(@Param("noticeId") String noticeId);
 }

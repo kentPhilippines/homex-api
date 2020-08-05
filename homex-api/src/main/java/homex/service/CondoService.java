@@ -39,7 +39,7 @@ public class CondoService extends BaseService{
 	 * @param userID				目前不知道是什么意思
 	 * @return
 	 */
-	public Result findCondo(String userID ,  String condoName ) {
+	public List<UserEntity> findCondo(String userID ,  String condoName ) {
 		UserEntityExample example = new UserEntityExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andUserRoleEqualTo(Integer.valueOf(Common.Role.CONDO));
@@ -48,7 +48,7 @@ public class CondoService extends BaseService{
 		if(StrUtil.isNotBlank(condoName))
 			criteria.andUserNameLike(condoName);
 		List<UserEntity> userList = userDao.selectByExample(example);
-		return Result.buildSuccessResult(userList);
+		return userList;
 	}
 	
 	/**
@@ -136,7 +136,7 @@ public class CondoService extends BaseService{
 		 * #################################################
 		 */
 		//1,生成公寓账号数据
-		Result resiger = loginServiceImpl.resiger(condoName, phone, email, password, Common.Role.CONDO);
+		Result resiger = loginServiceImpl.resiger(condoName, phone, email, password, Common.Role.CONDO, "", "");
 		if(!resiger.isSuccess())
 			throw new OtherErrors("生成账户数据错误");
 		//2,生成公寓标签数据

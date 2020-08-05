@@ -5,6 +5,7 @@ import homex.bean.QueryMapEntityExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 public interface QueryMapEntityMapper {
     int countByExample(QueryMapEntityExample example);
@@ -38,4 +39,7 @@ public interface QueryMapEntityMapper {
     
     @Select("select * from home_query_map where user_id = #{userId}")
 	List<QueryMapEntity> findMap( @Param("userId") String userId);
+
+    @Update("update home_query_map set tower = #{tower} where user_id = #{userId}")
+	int editTower( @Param("userId")  String userId,  @Param("tower")  String tower);
 }

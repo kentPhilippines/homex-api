@@ -13,7 +13,7 @@ import homex.service.UserService;
 @RestController
 public class UserApi extends BaseController{
 	@Autowired LoginService LoginServiceImpl;
-	@Autowired UserService userServiceImpl;
+	@Autowired UserService userServiceImpl; 
 	@PostMapping("/login")
 	public Result login(String email, String password) {
 		log.info("【进入登入方法】");
@@ -32,15 +32,15 @@ public class UserApi extends BaseController{
 	 * @return
 	 */
 	@PostMapping("/resiger")
-	public Result resiger(String  name  ,String mobile ,String email ,String code ,String password ,String role 
-			) {
+	public Result resiger(String  name  ,String mobile ,String email ,String code ,String password ,String role ,String tower,
+			String userID) {
 		log.info("【进入用户注册方法】");
 		Result check = LoginServiceImpl.resiger( 
 				name  
 				, mobile 
 				, email 
 				, password 
-				, role );
+				, role ,tower,userID);
 		if(check.isSuccess())
 		 return check;
 		return Result.buildFailMessage("登录失败");

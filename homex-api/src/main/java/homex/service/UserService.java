@@ -1,5 +1,7 @@
 package homex.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -8,12 +10,14 @@ import homex.bean.UserEntityExample;
 import homex.bean.UserEntityExample.Criteria;
 import homex.common.bean.Result;
 import homex.common.framework.BaseService;
+import homex.mapper.QueryMapEntityMapper;
 import homex.mapper.UserEntityMapper;
 import homex.util.HashKit;
 
 @Component
 public class UserService extends BaseService{
 	@Autowired UserEntityMapper userDao;
+	@Autowired QueryMapEntityMapper queryMapEntityDao;
 
 	/**
 	 *	<p>用户修改密码</p>
@@ -57,6 +61,29 @@ public class UserService extends BaseService{
 		if(i==1)
 			return Result.buildSuccessMessage("修改成功");
 		return Result.buildFailMessage("修改失败");
+	}
+
+	public List<UserEntity> findUserByCraeteBy(String userID) {
+		return userDao.findUserByCraeteBy(userID);
+	}
+
+	
+	
+	public Result deleteUser(String receptionID) {
+		return userDao.deleteUser(receptionID);
+	}
+
+	/**
+	 * 修改tower查询地图数据
+	 * @param id
+	 * @param tower
+	 * @return
+	 */
+	public Result editTower(String id, String tower) {
+		int  i  = queryMapEntityDao.editTower(id,tower);
+		if(i> 0)
+			return Result.buildSuccess();
+		return Result.buildFail();
 	}
 	
 	

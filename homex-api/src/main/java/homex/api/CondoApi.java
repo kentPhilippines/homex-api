@@ -1,5 +1,7 @@
 package homex.api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -7,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import cn.hutool.core.util.StrUtil;
+import homex.bean.UserEntity;
 import homex.common.bean.Result;
 import homex.common.framework.BaseController;
+import homex.common.page.TableDataInfo;
 import homex.service.CondoService;
 
 /**
@@ -32,10 +36,10 @@ public class CondoApi extends BaseController{
 	 */
 	
 	@GetMapping("/getCondoList")
-	public Result getCondoList(String userID, String condoName   ) {
+	public TableDataInfo getCondoList(String userID, String condoName   ) {
 		startPage();
-		Result findCondo = condoServiceImpl.findCondo(userID,condoName);
-		return findCondo;
+		List<UserEntity> findCondo = condoServiceImpl.findCondo(userID,condoName);
+		return getDataTable(findCondo);
 	}
 	
 	

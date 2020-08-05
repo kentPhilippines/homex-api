@@ -2,7 +2,11 @@ package homex.mapper;
 
 import homex.bean.UserEntity;
 import homex.bean.UserEntityExample;
+import homex.common.bean.Result;
+
 import java.util.List;
+
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -45,4 +49,13 @@ public interface UserEntityMapper {
 
     @Update("updata  home_user set  user_password = #{password} where user_email  = #{email}")
 	Integer updatePassword(@Param("email") String email, @Param("password") String password);
+
+    @Select("select * from home_user where user_id = #{userId}")
+	UserEntity findUserId( @Param("userId")String  userId);
+
+    @Select("select * from home_user where create_by = #{userID}")
+	List<UserEntity> findUserByCraeteBy(@Param("userID") String userID);
+
+    @Delete("delete from home_user where user_id = #{userId}")
+	Result deleteUser(@Param("userId")  String receptionID);
 }

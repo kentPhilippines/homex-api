@@ -52,7 +52,7 @@ public class QueryMapService extends BaseService{
 	 * @param userId				自己的系统唯一编号
 	 * @return
 	 */
-	Result findQueryMap (String userId) {
+	Result findQueryMap  (String userId) {
 		List<QueryMapEntity> mapList = queryMapEntityDao.findMap( userId);
 		if(CollUtil.isNotEmpty(mapList))
 			return Result.buildSuccessResult(mapList);
