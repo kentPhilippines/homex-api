@@ -3,10 +3,12 @@ package homex.mapper;
 import homex.bean.CondoTowerEntity;
 import homex.bean.CondoTowerEntityExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-
+@Mapper
 public interface CondoTowerEntityMapper {
     int countByExample(CondoTowerEntityExample example);
 

@@ -3,8 +3,10 @@ package homex.mapper;
 import homex.bean.CodeEntity;
 import homex.bean.CodeEntityExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+@Mapper
 public interface CodeEntityMapper {
     int countByExample(CodeEntityExample example);
 

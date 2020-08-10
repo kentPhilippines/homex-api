@@ -3,10 +3,12 @@ package homex.mapper;
 import homex.bean.QueryMapEntity;
 import homex.bean.QueryMapEntityExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-
+@Mapper
 public interface QueryMapEntityMapper {
     int countByExample(QueryMapEntityExample example);
 

@@ -11,8 +11,6 @@ public class UserEntity {
 
     private String userEmail;
 
-    private String userAvtar;
-
     private String userPhone;
 
     private Integer userRole;
@@ -28,6 +26,8 @@ public class UserEntity {
     private Date updateTime;
 
     private Integer status;
+
+    private String userAvtar;
 
     private String remark;
 
@@ -61,14 +61,6 @@ public class UserEntity {
 
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail == null ? null : userEmail.trim();
-    }
-
-    public String getUserAvtar() {
-        return userAvtar;
-    }
-
-    public void setUserAvtar(String userAvtar) {
-        this.userAvtar = userAvtar == null ? null : userAvtar.trim();
     }
 
     public String getUserPhone() {
@@ -133,6 +125,14 @@ public class UserEntity {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getUserAvtar() {
+        return userAvtar;
+    }
+
+    public void setUserAvtar(String userAvtar) {
+        this.userAvtar = userAvtar == null ? null : userAvtar.trim();
     }
 
     public String getRemark() {

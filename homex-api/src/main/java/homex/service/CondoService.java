@@ -1,16 +1,17 @@
 package homex.service;
+import java.io.InputStream;
 import java.util.List;
-
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import cn.hutool.core.thread.ThreadUtil;
+import org.springframework.web.multipart.MultipartFile;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.log.Log;
-import cn.hutool.log.LogFactory;
+import cn.hutool.json.JSONArray;
+import cn.hutool.json.JSONUtil;
 import homex.bean.CondoEntity;
 import homex.bean.CondoTowerEntity;
 import homex.bean.UserEntity;
@@ -19,8 +20,8 @@ import homex.bean.UserEntityExample.Criteria;
 import homex.common.bean.Common;
 import homex.common.bean.Result;
 import homex.common.framework.BaseService;
+import homex.common.util.ImportExcel;
 import homex.config.exception.OtherErrors;
-import homex.mapper.CodeEntityMapper;
 import homex.mapper.CondoEntityMapper;
 import homex.mapper.CondoTowerEntityMapper;
 import homex.mapper.UserEntityMapper;
@@ -179,4 +180,23 @@ public class CondoService extends BaseService{
 			getTowerName();
 		return condotower;
 	}
-}
+
+	public Result saveExcal(MultipartFile file ) {
+		 try {
+			 String fileName = file.getOriginalFilename();
+			 // 获取上传文件的输入流
+			 InputStream inputStream = file.getInputStream();
+			 // 调用工具类中方法，读取excel文件中数据
+			 List<Map<String, Object>> sourceList = ImportExcel.readExcel(fileName, inputStream);
+			 // 将对象先转为json格式字符串，然后再转为List<SysUser> 对象
+			 ObjectMapper objMapper = new ObjectMapper();
+			 String infos = objMapper.writeValueAsString(sourceList);
+			 JSONArray parseArray = JSONUtil.parseArray(infos,true);
+			 for(Object obj : parseArray) {
+				 log.info("解析参数信息："+obj);
+			 }
+		 } catch (Exception e) {
+		 }
+		return null;  
+		}
+	}

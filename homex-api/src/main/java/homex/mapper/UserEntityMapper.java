@@ -7,10 +7,11 @@ import homex.common.bean.Result;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-
+@Mapper
 public interface UserEntityMapper {
     int countByExample(UserEntityExample example);
 
@@ -20,7 +21,7 @@ public interface UserEntityMapper {
 
     int insert(UserEntity record);
 
-    int insertSelective(UserEntity record);
+    int insertSelective(UserEntity record); 
 
     List<UserEntity> selectByExampleWithBLOBs(UserEntityExample example);
 

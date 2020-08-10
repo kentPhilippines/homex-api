@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="homex.mapper.UnitEntityMapper" >
+  <resultMap id="BaseResultMap" type="homex.bean.UnitEntity" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="condo_id" property="condoId" jdbcType="VARCHAR" />
+    <result column="tower_id" property="towerId" jdbcType="VARCHAR" />
+    <result column="unit_id" property="unitId" jdbcType="VARCHAR" />
+    <result column="unit_name" property="unitName" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="parking" property="parking" jdbcType="VARCHAR" />
+    <result column="owner" property="owner" jdbcType="VARCHAR" />
+    <result column="owner_contact_no" property="ownerContactNo" jdbcType="VARCHAR" />
+    <result column="owner_id_card" property="ownerIdCard" jdbcType="VARCHAR" />
+    <result column="owner_email" property="ownerEmail" jdbcType="VARCHAR" />
+    <result column="spa" property="spa" jdbcType="VARCHAR" />
+    <result column="spa_id_card" property="spaIdCard" jdbcType="VARCHAR" />
+    <result column="spa_contact_no" property="spaContactNo" jdbcType="VARCHAR" />
+    <result column="spa_email" property="spaEmail" jdbcType="VARCHAR" />
+    <result column="tenant" property="tenant" jdbcType="VARCHAR" />
+    <result column="tenant_id_card" property="tenantIdCard" jdbcType="VARCHAR" />
+    <result column="tenant_contact_no" property="tenantContactNo" jdbcType="VARCHAR" />
+    <result column="tenant_email" property="tenantEmail" jdbcType="VARCHAR" />
+    <result column="move_in" property="moveIn" jdbcType="TIMESTAMP" />
+    <result column="move_out" property="moveOut" jdbcType="TIMESTAMP" />
+    <result column="broker" property="broker" jdbcType="VARCHAR" />
+    <result column="broker_contact_no" property="brokerContactNo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, condo_id, tower_id, unit_id, unit_name, area, type, parking, owner, owner_contact_no, 
+    owner_id_card, owner_email, spa, spa_id_card, spa_contact_no, spa_email, tenant, 
+    tenant_id_card, tenant_contact_no, tenant_email, move_in, move_out, broker, broker_contact_no
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="homex.bean.UnitEntityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from home_unit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from home_unit
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from home_unit
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="homex.bean.UnitEntityExample" >
+    delete from home_unit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="homex.bean.UnitEntity" useGeneratedKeys="true" keyProperty="id" >
+    insert into home_unit (condo_id, tower_id, unit_id, 
+      unit_name, area, type, 
+      parking, owner, owner_contact_no, 
+      owner_id_card, owner_email, spa, 
+      spa_id_card, spa_contact_no, spa_email, 
+      tenant, tenant_id_card, tenant_contact_no, 
+      tenant_email, move_in, move_out, 
+      broker, broker_contact_no)
+    values (#{condoId,jdbcType=VARCHAR}, #{towerId,jdbcType=VARCHAR}, #{unitId,jdbcType=VARCHAR}, 
+      #{unitName,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{parking,jdbcType=VARCHAR}, #{owner,jdbcType=VARCHAR}, #{ownerContactNo,jdbcType=VARCHAR}, 
+      #{ownerIdCard,jdbcType=VARCHAR}, #{ownerEmail,jdbcType=VARCHAR}, #{spa,jdbcType=VARCHAR}, 
+      #{spaIdCard,jdbcType=VARCHAR}, #{spaContactNo,jdbcType=VARCHAR}, #{spaEmail,jdbcType=VARCHAR}, 
+      #{tenant,jdbcType=VARCHAR}, #{tenantIdCard,jdbcType=VARCHAR}, #{tenantContactNo,jdbcType=VARCHAR}, 
+      #{tenantEmail,jdbcType=VARCHAR}, #{moveIn,jdbcType=TIMESTAMP}, #{moveOut,jdbcType=TIMESTAMP}, 
+      #{broker,jdbcType=VARCHAR}, #{brokerContactNo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="homex.bean.UnitEntity" useGeneratedKeys="true" keyProperty="id" >
+    insert into home_unit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="condoId != null" >
+        condo_id,
+      </if>
+      <if test="towerId != null" >
+        tower_id,
+      </if>
+      <if test="unitId != null" >
+        unit_id,
+      </if>
+      <if test="unitName != null" >
+        unit_name,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="parking != null" >
+        parking,
+      </if>
+      <if test="owner != null" >
+        owner,
+      </if>
+      <if test="ownerContactNo != null" >
+        owner_contact_no,
+      </if>
+      <if test="ownerIdCard != null" >
+        owner_id_card,
+      </if>
+      <if test="ownerEmail != null" >
+        owner_email,
+      </if>
+      <if test="spa != null" >
+        spa,
+      </if>
+      <if test="spaIdCard != null" >
+        spa_id_card,
+      </if>
+      <if test="spaContactNo != null" >
+        spa_contact_no,
+      </if>
+      <if test="spaEmail != null" >
+        spa_email,
+      </if>
+      <if test="tenant != null" >
+        tenant,
+      </if>
+      <if test="tenantIdCard != null" >
+        tenant_id_card,
+      </if>
+      <if test="tenantContactNo != null" >
+        tenant_contact_no,
+      </if>
+      <if test="tenantEmail != null" >
+        tenant_email,
+      </if>
+      <if test="moveIn != null" >
+        move_in,
+      </if>
+      <if test="moveOut != null" >
+        move_out,
+      </if>
+      <if test="broker != null" >
+        broker,
+      </if>
+      <if test="brokerContactNo != null" >
+        broker_contact_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="condoId != null" >
+        #{condoId,jdbcType=VARCHAR},
+      </if>
+      <if test="towerId != null" >
+        #{towerId,jdbcType=VARCHAR},
+      </if>
+      <if test="unitId != null" >
+        #{unitId,jdbcType=VARCHAR},
+      </if>
+      <if test="unitName != null" >
+        #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="parking != null" >
+        #{parking,jdbcType=VARCHAR},
+      </if>
+      <if test="owner != null" >
+        #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerContactNo != null" >
+        #{ownerContactNo,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerIdCard != null" >
+        #{ownerIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerEmail != null" >
+        #{ownerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="spa != null" >
+        #{spa,jdbcType=VARCHAR},
+      </if>
+      <if test="spaIdCard != null" >
+        #{spaIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="spaContactNo != null" >
+        #{spaContactNo,jdbcType=VARCHAR},
+      </if>
+      <if test="spaEmail != null" >
+        #{spaEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="tenant != null" >
+        #{tenant,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantIdCard != null" >
+        #{tenantIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantContactNo != null" >
+        #{tenantContactNo,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantEmail != null" >
+        #{tenantEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="moveIn != null" >
+        #{moveIn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="moveOut != null" >
+        #{moveOut,jdbcType=TIMESTAMP},
+      </if>
+      <if test="broker != null" >
+        #{broker,jdbcType=VARCHAR},
+      </if>
+      <if test="brokerContactNo != null" >
+        #{brokerContactNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="homex.bean.UnitEntityExample" resultType="java.lang.Integer" >
+    select count(*) from home_unit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update home_unit
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.condoId != null" >
+        condo_id = #{record.condoId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.towerId != null" >
+        tower_id = #{record.towerId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitId != null" >
+        unit_id = #{record.unitId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitName != null" >
+        unit_name = #{record.unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null" >
+        area = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parking != null" >
+        parking = #{record.parking,jdbcType=VARCHAR},
+      </if>
+      <if test="record.owner != null" >
+        owner = #{record.owner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ownerContactNo != null" >
+        owner_contact_no = #{record.ownerContactNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ownerIdCard != null" >
+        owner_id_card = #{record.ownerIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ownerEmail != null" >
+        owner_email = #{record.ownerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spa != null" >
+        spa = #{record.spa,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spaIdCard != null" >
+        spa_id_card = #{record.spaIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spaContactNo != null" >
+        spa_contact_no = #{record.spaContactNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spaEmail != null" >
+        spa_email = #{record.spaEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tenant != null" >
+        tenant = #{record.tenant,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tenantIdCard != null" >
+        tenant_id_card = #{record.tenantIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tenantContactNo != null" >
+        tenant_contact_no = #{record.tenantContactNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tenantEmail != null" >
+        tenant_email = #{record.tenantEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moveIn != null" >
+        move_in = #{record.moveIn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.moveOut != null" >
+        move_out = #{record.moveOut,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.broker != null" >
+        broker = #{record.broker,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brokerContactNo != null" >
+        broker_contact_no = #{record.brokerContactNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update home_unit
+    set id = #{record.id,jdbcType=INTEGER},
+      condo_id = #{record.condoId,jdbcType=VARCHAR},
+      tower_id = #{record.towerId,jdbcType=VARCHAR},
+      unit_id = #{record.unitId,jdbcType=VARCHAR},
+      unit_name = #{record.unitName,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      parking = #{record.parking,jdbcType=VARCHAR},
+      owner = #{record.owner,jdbcType=VARCHAR},
+      owner_contact_no = #{record.ownerContactNo,jdbcType=VARCHAR},
+      owner_id_card = #{record.ownerIdCard,jdbcType=VARCHAR},
+      owner_email = #{record.ownerEmail,jdbcType=VARCHAR},
+      spa = #{record.spa,jdbcType=VARCHAR},
+      spa_id_card = #{record.spaIdCard,jdbcType=VARCHAR},
+      spa_contact_no = #{record.spaContactNo,jdbcType=VARCHAR},
+      spa_email = #{record.spaEmail,jdbcType=VARCHAR},
+      tenant = #{record.tenant,jdbcType=VARCHAR},
+      tenant_id_card = #{record.tenantIdCard,jdbcType=VARCHAR},
+      tenant_contact_no = #{record.tenantContactNo,jdbcType=VARCHAR},
+      tenant_email = #{record.tenantEmail,jdbcType=VARCHAR},
+      move_in = #{record.moveIn,jdbcType=TIMESTAMP},
+      move_out = #{record.moveOut,jdbcType=TIMESTAMP},
+      broker = #{record.broker,jdbcType=VARCHAR},
+      broker_contact_no = #{record.brokerContactNo,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="homex.bean.UnitEntity" >
+    update home_unit
+    <set >
+      <if test="condoId != null" >
+        condo_id = #{condoId,jdbcType=VARCHAR},
+      </if>
+      <if test="towerId != null" >
+        tower_id = #{towerId,jdbcType=VARCHAR},
+      </if>
+      <if test="unitId != null" >
+        unit_id = #{unitId,jdbcType=VARCHAR},
+      </if>
+      <if test="unitName != null" >
+        unit_name = #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="parking != null" >
+        parking = #{parking,jdbcType=VARCHAR},
+      </if>
+      <if test="owner != null" >
+        owner = #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerContactNo != null" >
+        owner_contact_no = #{ownerContactNo,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerIdCard != null" >
+        owner_id_card = #{ownerIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerEmail != null" >
+        owner_email = #{ownerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="spa != null" >
+        spa = #{spa,jdbcType=VARCHAR},
+      </if>
+      <if test="spaIdCard != null" >
+        spa_id_card = #{spaIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="spaContactNo != null" >
+        spa_contact_no = #{spaContactNo,jdbcType=VARCHAR},
+      </if>
+      <if test="spaEmail != null" >
+        spa_email = #{spaEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="tenant != null" >
+        tenant = #{tenant,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantIdCard != null" >
+        tenant_id_card = #{tenantIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantContactNo != null" >
+        tenant_contact_no = #{tenantContactNo,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantEmail != null" >
+        tenant_email = #{tenantEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="moveIn != null" >
+        move_in = #{moveIn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="moveOut != null" >
+        move_out = #{moveOut,jdbcType=TIMESTAMP},
+      </if>
+      <if test="broker != null" >
+        broker = #{broker,jdbcType=VARCHAR},
+      </if>
+      <if test="brokerContactNo != null" >
+        broker_contact_no = #{brokerContactNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="homex.bean.UnitEntity" >
+    update home_unit
+    set condo_id = #{condoId,jdbcType=VARCHAR},
+      tower_id = #{towerId,jdbcType=VARCHAR},
+      unit_id = #{unitId,jdbcType=VARCHAR},
+      unit_name = #{unitName,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      parking = #{parking,jdbcType=VARCHAR},
+      owner = #{owner,jdbcType=VARCHAR},
+      owner_contact_no = #{ownerContactNo,jdbcType=VARCHAR},
+      owner_id_card = #{ownerIdCard,jdbcType=VARCHAR},
+      owner_email = #{ownerEmail,jdbcType=VARCHAR},
+      spa = #{spa,jdbcType=VARCHAR},
+      spa_id_card = #{spaIdCard,jdbcType=VARCHAR},
+      spa_contact_no = #{spaContactNo,jdbcType=VARCHAR},
+      spa_email = #{spaEmail,jdbcType=VARCHAR},
+      tenant = #{tenant,jdbcType=VARCHAR},
+      tenant_id_card = #{tenantIdCard,jdbcType=VARCHAR},
+      tenant_contact_no = #{tenantContactNo,jdbcType=VARCHAR},
+      tenant_email = #{tenantEmail,jdbcType=VARCHAR},
+      move_in = #{moveIn,jdbcType=TIMESTAMP},
+      move_out = #{moveOut,jdbcType=TIMESTAMP},
+      broker = #{broker,jdbcType=VARCHAR},
+      broker_contact_no = #{brokerContactNo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -112,13 +112,13 @@
                     <generatedKey column="id" sqlStatement="JDBC"/>
             </table> 
          
-             <table tableName="home_code" domainObjectName="CodeEntity"   
+             <table tableName="home_unit" domainObjectName="UnitEntity"   
              enableCountByExample="true"  enableUpdateByExample="true"  enableDeleteByExample="true"  enableSelectByExample="true"  selectByExampleQueryId="true">
                     <property name="my.isgen.usekeys" value="true"/>
                     <generatedKey column="id" sqlStatement="JDBC"/>
             </table> 
          
-             <table tableName="home_condo" domainObjectName="CondoEntity"   
+           <!--   <table tableName="home_condo" domainObjectName="CondoEntity"   
              enableCountByExample="true"  enableUpdateByExample="true"  enableDeleteByExample="true"  enableSelectByExample="true"  selectByExampleQueryId="true">
                     <property name="my.isgen.usekeys" value="true"/>
                     <generatedKey column="id" sqlStatement="JDBC"/>
@@ -140,7 +140,7 @@
              <table tableName="home_todo" domainObjectName="TodoEntity"   enableCountByExample="true"  enableUpdateByExample="true"  enableDeleteByExample="true"  enableSelectByExample="true"  selectByExampleQueryId="true">
                     <property name="my.isgen.usekeys" value="true"/>
                     <generatedKey column="id" sqlStatement="JDBC"/>
-            </table> 
+            </table>  -->
          
        <!--       <table tableName="home_todo" domainObjectName="TodoEntity"   enableCountByExample="true"  enableUpdateByExample="true"  enableDeleteByExample="true"  enableSelectByExample="true"  selectByExampleQueryId="true">
                     <property name="my.isgen.usekeys" value="true"/>
