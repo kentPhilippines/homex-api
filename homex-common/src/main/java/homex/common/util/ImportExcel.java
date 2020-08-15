@@ -28,20 +28,16 @@ public class ImportExcel {
         boolean ret = isXls(fileName);
         Workbook workbook = null;
         // 根据后缀创建不同的对象
-        if(ret){
+        if(ret)
             workbook = new HSSFWorkbook(inputStream);
-        }else{
+        else
             workbook = new XSSFWorkbook(inputStream);
-        }
         Sheet sheet = workbook.getSheetAt(0);
         // 得到标题行
         Row titleRow = sheet.getRow(0);
-
         int lastRowNum = sheet.getLastRowNum();
         int lastCellNum = titleRow.getLastCellNum();
-
         List<Map<String, Object>> list = new ArrayList<>();
-
         for(int i = 1; i <= lastRowNum; i++ ){
             Map<String, Object> map = new HashMap<>();
             Row row = sheet.getRow(i);
@@ -50,7 +46,6 @@ public class ImportExcel {
                 String key = titleRow.getCell(j).getStringCellValue();
                 Cell cell = row.getCell(j);
                 cell.setCellType(CellType.STRING);
-
                 map.put(key, cell.getStringCellValue());
             }
             list.add(map);

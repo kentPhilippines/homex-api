@@ -36,7 +36,6 @@ public class UserService extends BaseService{
 			return Result.buildSuccessMessage("密码修改成功");
 		return Result.buildFailMessage("密码修改失败");
 	}
-
 	/**
 	 * <p>修改用户数据</p>
 	 * @param userID
@@ -62,17 +61,12 @@ public class UserService extends BaseService{
 			return Result.buildSuccessMessage("修改成功");
 		return Result.buildFailMessage("修改失败");
 	}
-
 	public List<UserEntity> findUserByCraeteBy(String userID) {
 		return userDao.findUserByCraeteBy(userID);
 	}
-
-	
-	
 	public Result deleteUser(String receptionID) {
 		return userDao.deleteUser(receptionID);
 	}
-
 	/**
 	 * 修改tower查询地图数据
 	 * @param id
@@ -85,6 +79,4 @@ public class UserService extends BaseService{
 			return Result.buildSuccess();
 		return Result.buildFail();
 	}
-	
-	
 }

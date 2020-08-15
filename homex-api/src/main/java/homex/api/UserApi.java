@@ -3,14 +3,17 @@ package homex.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import cn.hutool.core.util.RandomUtil;
 import homex.common.bean.Result;
 import homex.common.framework.BaseController;
 import homex.service.LoginService;
 import homex.service.UserService;
 
 @RestController
+@RequestMapping("/dev-api")
 public class UserApi extends BaseController{
 	@Autowired LoginService LoginServiceImpl;
 	@Autowired UserService userServiceImpl; 
@@ -18,9 +21,7 @@ public class UserApi extends BaseController{
 	public Result login(String email, String password) {
 		log.info("【进入登入方法】");
 		Result check = LoginServiceImpl.check(email, password);
-		if(check.isSuccess())
-		 return check;
-		return Result.buildFailMessage("登录失败");
+		return check;
 	}
 	/**
 		name			BODY		String				用户名
@@ -41,9 +42,7 @@ public class UserApi extends BaseController{
 				, email 
 				, password 
 				, role ,tower,userID);
-		if(check.isSuccess())
-		 return check;
-		return Result.buildFailMessage("登录失败");
+		return check;
 	}
 	/**
 	 * <p>密码重置</p>
@@ -78,6 +77,9 @@ public class UserApi extends BaseController{
 		return user;
 	}
 	
-	
+	@PostMapping("/getCode")
+	public Result getCode() {
+		return Result.buildSuccessResult(RandomUtil.randomNumbers(6));
+	}
 	
 }

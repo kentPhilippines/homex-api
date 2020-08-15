@@ -32,10 +32,11 @@ public class LoginService extends BaseService{
 		}
 		UserEntity user = userDao.findUserByEmail(username);
 		if(ObjectUtil.isNull(user)) {
-			String msg = "当前用户不存在";
+			String msg = "user does not exist" ;
 			log.info("【"+msg+"】");
 			return Result.buildFailMessage(msg);
 		}
+		log.info("【当前登录用户："+user+"】");
 		Result encodePassword = HashKit.encodePassword(user.getUserEmail(), password, user.getUserSlat());
 		String encodepassword = "";
 		if(encodePassword.isSuccess())
@@ -67,10 +68,17 @@ public class LoginService extends BaseService{
 				||StrUtil.isBlank(password)
 				)
 			return Result.buildFailMessage("必传参数为空");
-		UserEntity user = new UserEntity();
+		UserEntity user = userDao.findUserByEmail(email);
+		if(ObjectUtil.isNotNull(user)) {
+			String msg = "Account already exists";
+			log.info("【"+msg+"】");
+			return Result.buildFailMessage(msg);
+		}
+		user = new UserEntity();
 		user.setUserId(getUserName());
 		user.setUserName(name);
 		user.setUserEmail(email);
+		user.setUserPhone(mobile);
 		String randomNumbers = RandomUtil.randomNumbers(10);
 		user.setUserSlat(randomNumbers);
 		user.setUserRole(Integer.valueOf(role));

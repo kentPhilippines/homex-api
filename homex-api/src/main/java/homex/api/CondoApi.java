@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.hutool.core.util.StrUtil;
+import homex.bean.AboutEntity;
+import homex.bean.CondoTowerEntity;
 import homex.bean.UserEntity;
 import homex.common.bean.Result;
 import homex.common.framework.BaseController;
@@ -60,8 +62,28 @@ public class CondoApi extends BaseController{
 		return condoServiceImpl.saveExcal(file);
 	}
 	
+	@PostMapping("/getTowerList")
+	public TableDataInfo getTowerList(String userId) {
+		startPage(); 
+		List<CondoTowerEntity> condoList = condoServiceImpl.getTowerList(userId);
+		return getDataTable(condoList);
+	}
 	
-	
-	
+	/**
+	 * <p>获取condo的About信息</p>
+	 * @param userId
+	 * @return
+	 */
+	@PostMapping("/getCondoAbout")
+	public Result getCondoAbout(String userId ) {
+		AboutEntity about = condoServiceImpl.findCondoAbout(userId);
+		return Result.buildSuccessResult(about);
+	}
+	@PostMapping("/editCondoAbout")
+	public Result editCondoAbout(AboutEntity about ) {
+		Result result =  condoServiceImpl.editCondoAbout(about);
+		return result;
+	} 
+	 
 		
 }

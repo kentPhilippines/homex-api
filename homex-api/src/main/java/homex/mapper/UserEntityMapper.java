@@ -42,19 +42,44 @@ public interface UserEntityMapper {
     int updateByPrimaryKey(UserEntity record);
 
     
-    @Select("select * from home_user where user_email = #{email}")
+    @Select("select id as id ,"
+    		+ "user_id as userId , "
+    		+ "user_name as userName "
+    		+ ",user_email as  userEmail "
+    		+ ",user_phone as  userPhone "
+    		+ ",user_role as userRole "
+    		+ ",user_slat as userSlat "
+    		+ ",user_password as userPassword "
+    		+ ",create_by as createBy "
+    		+ "  from home_user where user_email = #{email}")
 	UserEntity findUserByEmail(@Param("email") String email);
 
-    @Select("select * from home_user where user_id = #{username}")
+    @Select("select count(1) from home_user where user_id = #{username}")
 	int findUserName(@Param("username") String username);
 
     @Update("updata  home_user set  user_password = #{password} where user_email  = #{email}")
 	Integer updatePassword(@Param("email") String email, @Param("password") String password);
 
-    @Select("select * from home_user where user_id = #{userId}")
+    @Select("select "
+    		+ "user_id as userId , " + 
+    		" user_name as userName " + 
+    		"  ,user_email as  userEmail " + 
+    		" ,user_phone as  userPhone " + 
+    		" ,user_role as userRole " + 
+    		" ,user_slat as userSlat" + 
+    		" ,user_password as userPassword" + 
+    		" ,create_by as createBy  from home_user where user_id = #{userId}")
 	UserEntity findUserId( @Param("userId")String  userId);
 
-    @Select("select * from home_user where create_by = #{userID}")
+    @Select("select "
+    		+ "user_id as userId , " + 
+    		" user_name as userName " + 
+    		"  ,user_email as  userEmail " + 
+    		" ,user_phone as  userPhone " + 
+    		" ,user_role as userRole " + 
+    		" ,user_slat as userSlat" + 
+    		" ,user_password as userPassword"  
+    		+ " from home_user where create_by = #{userID}")
 	List<UserEntity> findUserByCraeteBy(@Param("userID") String userID);
 
     @Delete("delete from home_user where user_id = #{userId}")

@@ -502,4 +502,11 @@
       broker_contact_no = #{brokerContactNo,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <select id="findUnitByUnit" parameterType="List" resultType="homex.bean.UnitEntity">
+  		select * from home_unit where 1=1 
+  		<foreach collection="mapList" separator="or" open="(" close=")" item="map">
+  		  tower_id = #{map.towerId}   and  condo_id = #{map.condoId}  and unit_id  = #{map.unitId}
+  		</foreach>
+  </select>
 </mapper>

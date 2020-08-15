@@ -142,4 +142,12 @@ public class UserEntity {
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
     }
+	@Override
+	public String toString() {
+		return "UserEntity [id=" + id + ", userId=" + userId + ", userName=" + userName + ", userEmail=" + userEmail
+				+ ", userPhone=" + userPhone + ", userRole=" + userRole + ", userSlat=" + userSlat + ", userPassword="
+				+ userPassword + ", createBy=" + createBy + ", createTime=" + createTime + ", updateTime=" + updateTime
+				+ ", status=" + status + ", userAvtar=" + userAvtar + ", remark=" + remark + "]";
+	}
+    
 }

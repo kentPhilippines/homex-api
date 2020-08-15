@@ -40,6 +40,10 @@ public interface CondoTowerEntityMapper {
 
     @Select("select count(1) from home_condo_tower where tower_id = #{condotower} ")
 	int findCondoTowerId(@Param("condotower") String condotower);
+    @Select("select count(1) from home_condo_tower where condo_id = #{condotower} ")
+    List<CondoTowerEntity> findCondoByTowerId(@Param("condo_id") String condoId);
+    @Select("select * from home_condo_tower where tower_id = #{condotower} ")
+    CondoTowerEntity findTowerId(@Param("condotower") String condotower);
 
     
     @Update("update home_condo_tower  set condo_name = #{condoName} where condo_id = #{condoId}")

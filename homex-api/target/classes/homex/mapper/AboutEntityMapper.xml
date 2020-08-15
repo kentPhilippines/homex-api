@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="homex.mapper.UserEntityMapper" >
-  <resultMap id="BaseResultMap" type="homex.bean.UserEntity" >
+<mapper namespace="homex.mapper.AboutEntityMapper" >
+  <resultMap id="BaseResultMap" type="homex.bean.AboutEntity" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="VARCHAR" />
-    <result column="user_name" property="userName" jdbcType="VARCHAR" />
-    <result column="user_email" property="userEmail" jdbcType="VARCHAR" />
-    <result column="user_avtar" property="userAvtar" jdbcType="VARCHAR" />
-    <result column="user_phone" property="userPhone" jdbcType="VARCHAR" />
-    <result column="user_role" property="userRole" jdbcType="INTEGER" />
-    <result column="user_slat" property="userSlat" jdbcType="VARCHAR" />
-    <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
-    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="rule_id" property="ruleId" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="status" property="status" jdbcType="INTEGER" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="homex.bean.UserEntity" extends="BaseResultMap" >
-    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+  <resultMap id="ResultMapWithBLOBs" type="homex.bean.AboutEntity" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="condoImgs" property="condoimgs" jdbcType="LONGVARCHAR" />
+    <result column="rule_text" property="ruleText" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -78,13 +77,12 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, user_id, user_name, user_email, user_avtar, user_phone, user_role, user_slat, 
-    user_password, create_by, create_time, update_time, status
+    id, user_id, time, phone, email, location, rule_id, create_time, update_time, status
   </sql>
   <sql id="Blob_Column_List" >
-    remark
+    content, condoImgs, rule_text
   </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="homex.bean.UserEntityExample" >
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="homex.bean.AboutEntityExample" >
     select
     <if test="distinct" >
       distinct
@@ -93,7 +91,7 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from home_user
+    from home_about
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -101,14 +99,14 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="homex.bean.UserEntityExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="homex.bean.AboutEntityExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from home_user
+    from home_about
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -121,60 +119,51 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from home_user
+    from home_about
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from home_user
+    delete from home_about
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="homex.bean.UserEntityExample" >
-    delete from home_user
+  <delete id="deleteByExample" parameterType="homex.bean.AboutEntityExample" >
+    delete from home_about
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="homex.bean.UserEntity" useGeneratedKeys="true" keyProperty="id" >
-    insert into home_user (user_id, user_name, user_email, 
-      user_avtar, user_phone, user_role, 
-      user_slat, user_password, create_by, 
+  <insert id="insert" parameterType="homex.bean.AboutEntity" useGeneratedKeys="true" keyProperty="id" >
+    insert into home_about (user_id, time, phone, 
+      email, location, rule_id, 
       create_time, update_time, status, 
-      remark)
-    values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{userEmail,jdbcType=VARCHAR}, 
-      #{userAvtar,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, #{userRole,jdbcType=INTEGER}, 
-      #{userSlat,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      content, condoImgs, rule_text
+      )
+    values (#{userId,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, #{ruleId,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, 
-      #{remark,jdbcType=LONGVARCHAR})
+      #{content,jdbcType=LONGVARCHAR}, #{condoimgs,jdbcType=LONGVARCHAR}, #{ruleText,jdbcType=LONGVARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="homex.bean.UserEntity" useGeneratedKeys="true" keyProperty="id" >
-    insert into home_user
+  <insert id="insertSelective" parameterType="homex.bean.AboutEntity" useGeneratedKeys="true" keyProperty="id" >
+    insert into home_about
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
         user_id,
       </if>
-      <if test="userName != null" >
-        user_name,
+      <if test="time != null" >
+        time,
       </if>
-      <if test="userEmail != null" >
-        user_email,
+      <if test="phone != null" >
+        phone,
       </if>
-      <if test="userAvtar != null" >
-        user_avtar,
+      <if test="email != null" >
+        email,
       </if>
-      <if test="userPhone != null" >
-        user_phone,
+      <if test="location != null" >
+        location,
       </if>
-      <if test="userRole != null" >
-        user_role,
-      </if>
-      <if test="userSlat != null" >
-        user_slat,
-      </if>
-      <if test="userPassword != null" >
-        user_password,
-      </if>
-      <if test="createBy != null" >
-        create_by,
+      <if test="ruleId != null" >
+        rule_id,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -185,37 +174,34 @@
       <if test="status != null" >
         status,
       </if>
-      <if test="remark != null" >
-        remark,
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="condoimgs != null" >
+        condoImgs,
+      </if>
+      <if test="ruleText != null" >
+        rule_text,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
         #{userId,jdbcType=VARCHAR},
       </if>
-      <if test="userName != null" >
-        #{userName,jdbcType=VARCHAR},
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
       </if>
-      <if test="userEmail != null" >
-        #{userEmail,jdbcType=VARCHAR},
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
       </if>
-      <if test="userAvtar != null" >
-        #{userAvtar,jdbcType=VARCHAR},
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
       </if>
-      <if test="userPhone != null" >
-        #{userPhone,jdbcType=VARCHAR},
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
       </if>
-      <if test="userRole != null" >
-        #{userRole,jdbcType=INTEGER},
-      </if>
-      <if test="userSlat != null" >
-        #{userSlat,jdbcType=VARCHAR},
-      </if>
-      <if test="userPassword != null" >
-        #{userPassword,jdbcType=VARCHAR},
-      </if>
-      <if test="createBy != null" >
-        #{createBy,jdbcType=VARCHAR},
+      <if test="ruleId != null" >
+        #{ruleId,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -226,19 +212,25 @@
       <if test="status != null" >
         #{status,jdbcType=INTEGER},
       </if>
-      <if test="remark != null" >
-        #{remark,jdbcType=LONGVARCHAR},
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="condoimgs != null" >
+        #{condoimgs,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="ruleText != null" >
+        #{ruleText,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="homex.bean.UserEntityExample" resultType="java.lang.Integer" >
-    select count(*) from home_user
+  <select id="countByExample" parameterType="homex.bean.AboutEntityExample" resultType="java.lang.Integer" >
+    select count(*) from home_about
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update home_user
+    update home_about
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
@@ -246,29 +238,20 @@
       <if test="record.userId != null" >
         user_id = #{record.userId,jdbcType=VARCHAR},
       </if>
-      <if test="record.userName != null" >
-        user_name = #{record.userName,jdbcType=VARCHAR},
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=VARCHAR},
       </if>
-      <if test="record.userEmail != null" >
-        user_email = #{record.userEmail,jdbcType=VARCHAR},
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
       </if>
-      <if test="record.userAvtar != null" >
-        user_avtar = #{record.userAvtar,jdbcType=VARCHAR},
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
       </if>
-      <if test="record.userPhone != null" >
-        user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      <if test="record.location != null" >
+        location = #{record.location,jdbcType=VARCHAR},
       </if>
-      <if test="record.userRole != null" >
-        user_role = #{record.userRole,jdbcType=INTEGER},
-      </if>
-      <if test="record.userSlat != null" >
-        user_slat = #{record.userSlat,jdbcType=VARCHAR},
-      </if>
-      <if test="record.userPassword != null" >
-        user_password = #{record.userPassword,jdbcType=VARCHAR},
-      </if>
-      <if test="record.createBy != null" >
-        create_by = #{record.createBy,jdbcType=VARCHAR},
+      <if test="record.ruleId != null" >
+        rule_id = #{record.ruleId,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -279,8 +262,14 @@
       <if test="record.status != null" >
         status = #{record.status,jdbcType=INTEGER},
       </if>
-      <if test="record.remark != null" >
-        remark = #{record.remark,jdbcType=LONGVARCHAR},
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.condoimgs != null" >
+        condoImgs = #{record.condoimgs,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.ruleText != null" >
+        rule_text = #{record.ruleText,jdbcType=LONGVARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -288,37 +277,33 @@
     </if>
   </update>
   <update id="updateByExampleWithBLOBs" parameterType="map" >
-    update home_user
+    update home_about
     set id = #{record.id,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=VARCHAR},
-      user_name = #{record.userName,jdbcType=VARCHAR},
-      user_email = #{record.userEmail,jdbcType=VARCHAR},
-      user_avtar = #{record.userAvtar,jdbcType=VARCHAR},
-      user_phone = #{record.userPhone,jdbcType=VARCHAR},
-      user_role = #{record.userRole,jdbcType=INTEGER},
-      user_slat = #{record.userSlat,jdbcType=VARCHAR},
-      user_password = #{record.userPassword,jdbcType=VARCHAR},
-      create_by = #{record.createBy,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      location = #{record.location,jdbcType=VARCHAR},
+      rule_id = #{record.ruleId,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       status = #{record.status,jdbcType=INTEGER},
-      remark = #{record.remark,jdbcType=LONGVARCHAR}
+      content = #{record.content,jdbcType=LONGVARCHAR},
+      condoImgs = #{record.condoimgs,jdbcType=LONGVARCHAR},
+      rule_text = #{record.ruleText,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update home_user
+    update home_about
     set id = #{record.id,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=VARCHAR},
-      user_name = #{record.userName,jdbcType=VARCHAR},
-      user_email = #{record.userEmail,jdbcType=VARCHAR},
-      user_avtar = #{record.userAvtar,jdbcType=VARCHAR},
-      user_phone = #{record.userPhone,jdbcType=VARCHAR},
-      user_role = #{record.userRole,jdbcType=INTEGER},
-      user_slat = #{record.userSlat,jdbcType=VARCHAR},
-      user_password = #{record.userPassword,jdbcType=VARCHAR},
-      create_by = #{record.createBy,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      location = #{record.location,jdbcType=VARCHAR},
+      rule_id = #{record.ruleId,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       status = #{record.status,jdbcType=INTEGER}
@@ -326,35 +311,26 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="homex.bean.UserEntity" >
-    update home_user
+  <update id="updateByPrimaryKeySelective" parameterType="homex.bean.AboutEntity" >
+    update home_about
     <set >
       <if test="userId != null" >
         user_id = #{userId,jdbcType=VARCHAR},
       </if>
-      <if test="userName != null" >
-        user_name = #{userName,jdbcType=VARCHAR},
+      <if test="time != null" >
+        time = #{time,jdbcType=VARCHAR},
       </if>
-      <if test="userEmail != null" >
-        user_email = #{userEmail,jdbcType=VARCHAR},
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
       </if>
-      <if test="userAvtar != null" >
-        user_avtar = #{userAvtar,jdbcType=VARCHAR},
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
       </if>
-      <if test="userPhone != null" >
-        user_phone = #{userPhone,jdbcType=VARCHAR},
+      <if test="location != null" >
+        location = #{location,jdbcType=VARCHAR},
       </if>
-      <if test="userRole != null" >
-        user_role = #{userRole,jdbcType=INTEGER},
-      </if>
-      <if test="userSlat != null" >
-        user_slat = #{userSlat,jdbcType=VARCHAR},
-      </if>
-      <if test="userPassword != null" >
-        user_password = #{userPassword,jdbcType=VARCHAR},
-      </if>
-      <if test="createBy != null" >
-        create_by = #{createBy,jdbcType=VARCHAR},
+      <if test="ruleId != null" >
+        rule_id = #{ruleId,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -365,40 +341,42 @@
       <if test="status != null" >
         status = #{status,jdbcType=INTEGER},
       </if>
-      <if test="remark != null" >
-        remark = #{remark,jdbcType=LONGVARCHAR},
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="condoimgs != null" >
+        condoImgs = #{condoimgs,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="ruleText != null" >
+        rule_text = #{ruleText,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="homex.bean.UserEntity" >
-    update home_user
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="homex.bean.AboutEntity" >
+    update home_about
     set user_id = #{userId,jdbcType=VARCHAR},
-      user_name = #{userName,jdbcType=VARCHAR},
-      user_email = #{userEmail,jdbcType=VARCHAR},
-      user_avtar = #{userAvtar,jdbcType=VARCHAR},
-      user_phone = #{userPhone,jdbcType=VARCHAR},
-      user_role = #{userRole,jdbcType=INTEGER},
-      user_slat = #{userSlat,jdbcType=VARCHAR},
-      user_password = #{userPassword,jdbcType=VARCHAR},
-      create_by = #{createBy,jdbcType=VARCHAR},
+      time = #{time,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      rule_id = #{ruleId,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       status = #{status,jdbcType=INTEGER},
-      remark = #{remark,jdbcType=LONGVARCHAR}
+      content = #{content,jdbcType=LONGVARCHAR},
+      condoImgs = #{condoimgs,jdbcType=LONGVARCHAR},
+      rule_text = #{ruleText,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="homex.bean.UserEntity" >
-    update home_user
+  <update id="updateByPrimaryKey" parameterType="homex.bean.AboutEntity" >
+    update home_about
     set user_id = #{userId,jdbcType=VARCHAR},
-      user_name = #{userName,jdbcType=VARCHAR},
-      user_email = #{userEmail,jdbcType=VARCHAR},
-      user_avtar = #{userAvtar,jdbcType=VARCHAR},
-      user_phone = #{userPhone,jdbcType=VARCHAR},
-      user_role = #{userRole,jdbcType=INTEGER},
-      user_slat = #{userSlat,jdbcType=VARCHAR},
-      user_password = #{userPassword,jdbcType=VARCHAR},
-      create_by = #{createBy,jdbcType=VARCHAR},
+      time = #{time,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      rule_id = #{ruleId,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       status = #{status,jdbcType=INTEGER}

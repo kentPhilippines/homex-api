@@ -12,6 +12,8 @@ import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONUtil;
+import homex.bean.AboutEntity;
+import homex.bean.AboutEntityExample;
 import homex.bean.CondoEntity;
 import homex.bean.CondoTowerEntity;
 import homex.bean.UserEntity;
@@ -22,6 +24,7 @@ import homex.common.bean.Result;
 import homex.common.framework.BaseService;
 import homex.common.util.ImportExcel;
 import homex.config.exception.OtherErrors;
+import homex.mapper.AboutEntityMapper;
 import homex.mapper.CondoEntityMapper;
 import homex.mapper.CondoTowerEntityMapper;
 import homex.mapper.UserEntityMapper;
@@ -32,6 +35,7 @@ public class CondoService extends BaseService{
 	@Autowired CondoTowerEntityMapper condoTowerEntityDao;
 	@Autowired QueryMapService queryMapServiceImpl;
 	@Autowired UserEntityMapper userDao;
+	@Autowired AboutEntityMapper aboutEntityDao;
 	
 	
 	/**
@@ -199,4 +203,28 @@ public class CondoService extends BaseService{
 		 }
 		return null;  
 		}
+
+	public List<CondoTowerEntity> getTowerList(String userId) {
+		 List<CondoTowerEntity> findCondoByTowerId = condoTowerEntityDao.findCondoByTowerId(userId);
+		return findCondoByTowerId;
 	}
+
+	/**
+	 * <p>获取公寓about信息</p>
+	 * @param userId
+	 * @return
+	 */
+	public AboutEntity findCondoAbout(String userId) {
+		 AboutEntity about = aboutEntityDao.findMeAbout(userId);
+		 about.setTowerList(getTowerList(userId));
+		return about;
+	}
+
+	public Result editCondoAbout(AboutEntity about) {
+		AboutEntityExample example = new AboutEntityExample();
+		homex.bean.AboutEntityExample.Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(about.getId());
+		int updateByExampleSelective = aboutEntityDao.updateByExampleSelective(about, example);
+		return updateByExampleSelective>0?Result.buildFail():Result.buildSuccess();
+	}
+}

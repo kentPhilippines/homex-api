@@ -59,8 +59,6 @@ public class ToDoService  extends BaseService{
 			return Result.buildSuccess();
 		return Result.buildFail();
 	}
-	
-	
 	/**
 	 * <p>根据自己的账号查询自己的notice</p>
 	 * @param userId
@@ -72,8 +70,6 @@ public class ToDoService  extends BaseService{
 		UserEntity user = userDao.findUserId(userId);
 		//首先任何账号都可以看到自己为作者的notice
 		List <TodoEntity> todoList  = todoEntityDao.findTodoByAuthor(userId);
-		
-		
 		/**
 		 * #########################
 		 * 1,如果是condo账号可以看到所有的数据
@@ -101,7 +97,6 @@ public class ToDoService  extends BaseService{
 			return Result.buildSuccessResult(CollUtil.isEmpty(todoListTower)?todoListUnit:todoListTower);
 		}
 	}
-	
 	/**
 	 * <p>删除一个todo</p>
 	 * @param noticeID			notice系统编号
