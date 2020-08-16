@@ -77,6 +77,10 @@ public class UserApi extends BaseController{
 		return user;
 	}
 	
+	/**
+	 * <p>向用户的邮箱发送验证吗,并记录该验证码，存入缓存2分钟有效即可</p>
+	 * @return
+	 */
 	@PostMapping("/getCode")
 	public Result getCode() {
 		return Result.buildSuccessResult(RandomUtil.randomNumbers(6));
