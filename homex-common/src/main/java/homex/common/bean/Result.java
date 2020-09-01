@@ -20,7 +20,7 @@ public class Result {
 	 * @return
 	 */
 	public static Result buildSuccess() {
-		return new Result(true, null, null, null);
+		return new Result(true, null, null, 0);
 	}
 	/**
 	 * <p>成功、有通知消息，无code无结果</p>
@@ -28,7 +28,7 @@ public class Result {
 	 * @return
 	 */
 	public static Result buildSuccessMessage(String message) {
-		return new Result(true, message, null, null);
+		return new Result(true, message, null, 0);
 	}
 	/**
 	 * <p>成功、有结果集，无通知，无code</p>
@@ -36,7 +36,7 @@ public class Result {
 	 * @return
 	 */
 	public static Result buildSuccessResult(Object result) {
-		return new Result(true, null, result,null);
+		return new Result(true, null, result,0);
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class Result {
 	 * @return
 	 */
 	public static Result buildSuccessResult( ) {
-		return new Result(true, null, null,null);
+		return new Result(true, null, null,0);
 	}
 	/**
 	 * <p>成功、有结果集，无通知，无code</p>
@@ -53,7 +53,7 @@ public class Result {
 	 * @return
 	 */
 	public static Result buildSuccessResult(String msg ,Object result) {
-		return new Result(true, msg, result,null);
+		return new Result(true, msg, result,0);
 	}
 	/**
 	 * <p>返回结果为成功,无返回提示,结果集</p>
@@ -80,7 +80,7 @@ public class Result {
 	 * @return
 	 */
 	public static Result buildFail( ) {
-		return new Result(false, null, null,null);
+		return new Result(false, null, null,1);
 	}
 	/**
 	 * <p>失败有通知消息</p>
@@ -88,7 +88,7 @@ public class Result {
 	 * @return
 	 */
 	public static Result buildFailMessage(String message) {
-		return new Result(false, message, null,null);
+		return new Result(false, message, null,1);
 	}
 	
 		public Result(boolean success, String message, Object result, Integer code) {

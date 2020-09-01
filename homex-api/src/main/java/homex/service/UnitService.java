@@ -74,4 +74,9 @@ public class UnitService {
 		int updateByPrimaryKey = unitEntityDao.updateByPrimaryKey(unit);
 		return updateByPrimaryKey>0?Result.buildFail():Result.buildSuccess();
 	}
+
+    public List<String> getTenantListByUnit(String condo, String tower, String unit) {
+		List<String> list = unitEntityDao.findUnitTenantList(condo, tower, unit);
+		return list;
+    }
 }

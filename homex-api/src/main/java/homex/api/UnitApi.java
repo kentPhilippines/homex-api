@@ -3,6 +3,7 @@ package homex.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,7 +46,13 @@ public class UnitApi extends BaseController{
 		Result result = unitServiceImpl.editUnitOwner(unit);
 		return result;
 	}
-	 
+
+
+	@GetMapping("/getUnitTenantList")
+	public Result getTenantList(String condo, String tower, String unit){
+		List<String> list = unitServiceImpl.getTenantListByUnit(condo, tower, unit);
+		return Result.buildSuccessResult(list);
+	}
 	
 	
 

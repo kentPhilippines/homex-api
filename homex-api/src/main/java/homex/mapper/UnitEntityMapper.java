@@ -63,4 +63,7 @@ public interface UnitEntityMapper {
     
    // @Select("select * from home_unit where condo_id = #{condoId}  and tower_id = #{towerId} and ")
 	List<UnitEntity> findUnitByUnit(@Param("mapList") List<QueryMapEntity> mapList);
+
+	@Select("select tenant from home_unit where condo_id = #{condo} and tower_id = #{tower} and unit_id = #{unit} ")
+    List<String> findUnitTenantList(@Param("condo") String condo, @Param("tower") String tower, @Param("unit") String unit);
 }
