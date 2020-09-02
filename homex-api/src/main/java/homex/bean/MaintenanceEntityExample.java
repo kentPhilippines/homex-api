@@ -385,8 +385,18 @@ public class MaintenanceEntityExample {
             return (Criteria) this;
         }
 
+        public Criteria andUnitIsNull() {
+            addCriterion("unit is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitIsNotNull() {
+            addCriterion("unit is not null");
+            return (Criteria) this;
+        }
+
         public Criteria andUnitEqualTo(String value) {
-            addCriterion("unit =", value, "unit");
+			addCriterion("unit =", value, "unit");
             return (Criteria) this;
         }
 
@@ -394,6 +404,8 @@ public class MaintenanceEntityExample {
             addCriterion("unit <>", value, "unit");
             return (Criteria) this;
         }
+
+        
 
         public Criteria andNameIsNull() {
             addCriterion("name is null");
