@@ -38,7 +38,10 @@ public interface NoticeEntityMapper {
 
     int updateByPrimaryKey(NoticeEntity record);
 
-	 List<NoticeEntity> findNoticeByAuthor(String userId);
+    
+    
+     @Select("select * from home_notice where author_id = #{userId} ")
+	 List<NoticeEntity> findNoticeByAuthor(@Param("userId") String userId);
 
 	 /**
 	  * 通过condo查询notice

@@ -46,6 +46,7 @@ public interface UserEntityMapper {
     		+ "user_id as userId , "
     		+ "user_name as userName "
     		+ ",user_email as  userEmail "
+    		+ ",user_avtar as  userAvtar "
     		+ ",user_phone as  userPhone "
     		+ ",user_role as userRole "
     		+ ",user_slat as userSlat "

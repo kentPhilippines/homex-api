@@ -13,6 +13,8 @@ public class Common {
 		public static final String OWNER = "6";//房东
 		public static final String TENANT = "7";//租客
 	}
-	
+	public class Path {
+		public static final String IMG_PATH = "D:/img/";//
+	}
 	
 }

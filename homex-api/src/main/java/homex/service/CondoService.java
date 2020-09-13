@@ -162,7 +162,8 @@ public class CondoService extends BaseService{
 				condoTower.setTowerId(getTowerName());
 				condoTower.setTowerName(towerName);
 				int insertSelective2 = condoTowerEntityDao.insertSelective(condoTower);
-				if(insertSelective2 < 1);
+				log.info("【添加condo-tower返回数据："+insertSelective2+"】");
+				if( insertSelective2 < 1) 
 					throw new OtherErrors("生成账户数据错误");
 		//	});
 		}
@@ -216,6 +217,8 @@ public class CondoService extends BaseService{
 	 */
 	public AboutEntity findCondoAbout(String userId) {
 		 AboutEntity about = aboutEntityDao.findMeAbout(userId);
+		 if(ObjectUtil.isNull(about)) 
+			 return null;
 		 about.setTowerList(getTowerList(userId));
 		return about;
 	}

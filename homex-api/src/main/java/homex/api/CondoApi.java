@@ -25,7 +25,7 @@ import homex.service.CondoService;
  *
  */
 @RestController
-@RequestMapping("/condo")
+@RequestMapping("/dev-api/condo")
 public class CondoApi extends BaseController{
 	
 	@Autowired CondoService condoServiceImpl;
@@ -40,9 +40,9 @@ public class CondoApi extends BaseController{
 	 */
 	
 	@GetMapping("/getCondoList")
-	public TableDataInfo getCondoList(String userID, String condoName   ) {
+	public TableDataInfo getCondoList(String userId, String condoName) {
 		startPage();
-		List<UserEntity> findCondo = condoServiceImpl.findCondo(userID,condoName);
+		List<UserEntity> findCondo = condoServiceImpl.findCondo(userId,condoName);
 		return getDataTable(findCondo);
 	}
 	
@@ -76,6 +76,7 @@ public class CondoApi extends BaseController{
 	 */
 	@PostMapping("/getCondoAbout")
 	public Result getCondoAbout(String userId ) {
+		log.info("【获取condo的About信息 ："+userId+"】");
 		AboutEntity about = condoServiceImpl.findCondoAbout(userId);
 		return Result.buildSuccessResult(about);
 	}

@@ -4,34 +4,47 @@ import java.util.Date;
 
 public class UserEntity {
     private Integer id;
-
+    private String sessionId;//token验证,目前先随便传递一个数据
     private String userId;
-
+    private String userID;
     private String userName;
-
     private String userEmail;
-
     private String userPhone;
-
     private Integer userRole;
-
     private String userSlat;
-
     private String userPassword;
-
+    private String password;
     private String createBy;
-
     private Date createTime;
-
     private Date updateTime;
-
     private Integer status;
-
     private String userAvtar;
-
     private String remark;
+    public String getSessionId() {
+		return sessionId;
+	}
 
-    public Integer getId() {
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
+	}
+
+	public String getUserID() {
+		return userID;
+	}
+
+	public void setUserID(String userID) {
+		this.userID = userID;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Integer getId() {
         return id;
     }
 
@@ -44,6 +57,7 @@ public class UserEntity {
     }
 
     public void setUserId(String userId) {
+    	setUserID(userId);
         this.userId = userId == null ? null : userId.trim();
     }
 
@@ -66,9 +80,8 @@ public class UserEntity {
     public String getUserPhone() {
         return userPhone;
     }
-
-    public void setUserPhone(String userPhone) {
-        this.userPhone = userPhone == null ? null : userPhone.trim();
+    public   void setUserPhone(String userPhone) {
+          this.userPhone = userPhone == null ? null : userPhone.trim();
     }
 
     public Integer getUserRole() {
@@ -92,6 +105,7 @@ public class UserEntity {
     }
 
     public void setUserPassword(String userPassword) {
+    	setPassword(userPassword);
         this.userPassword = userPassword == null ? null : userPassword.trim();
     }
 

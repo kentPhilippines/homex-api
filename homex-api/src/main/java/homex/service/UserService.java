@@ -1,5 +1,6 @@
 package homex.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +9,14 @@ import org.springframework.stereotype.Component;
 import homex.bean.UserEntity;
 import homex.bean.UserEntityExample;
 import homex.bean.UserEntityExample.Criteria;
+import homex.common.bean.Common;
 import homex.common.bean.Result;
 import homex.common.framework.BaseService;
 import homex.mapper.QueryMapEntityMapper;
 import homex.mapper.UserEntityMapper;
+import homex.util.GenerateOrderNo;
 import homex.util.HashKit;
+import homex.util.ImageBase64Utils;
 
 @Component
 public class UserService extends BaseService{
@@ -52,14 +56,20 @@ public class UserService extends BaseService{
 		user.setUserName(userName);
 		user.setUserEmail(userEmail);
 		user.setUserPhone(userPhone);
-		user.setUserAvtar(userAvtar);
+		String no = Common.Path.IMG_PATH+GenerateOrderNo.imgNo()+".kent";
+		try {
+			ImageBase64Utils.Base64ToImage(userAvtar,no);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		user.setUserAvtar(no);
 		UserEntityExample example = new UserEntityExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andUserIdEqualTo(userID);
 		int i = userDao.updateByExampleSelective(user, example);
 		if(i==1)
-			return Result.buildSuccessMessage("修改成功");
-		return Result.buildFailMessage("修改失败");
+			return Result.buildSuccessMessage("edit is success");
+		return Result.buildFailMessage("edit is error");
 	}
 	public List<UserEntity> findUserByCraeteBy(String userID) {
 		return userDao.findUserByCraeteBy(userID);

@@ -76,7 +76,7 @@ public class MoveInApi extends BaseController {
         for (String str:pictureList) {
             try{
                 String path = StaticConstants.PHOTO_FILE_PATH + UUID.randomUUID().toString().replace("-","");
-                ImageBase64Utils.base64ToImageFile(str, path);
+                ImageBase64Utils.Base64ToImage(str, path);
                 list.add(path);
             } catch (IOException ex){
                 ex.printStackTrace();

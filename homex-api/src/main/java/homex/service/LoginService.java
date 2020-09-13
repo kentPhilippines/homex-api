@@ -1,5 +1,7 @@
 package homex.service;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +15,7 @@ import homex.common.framework.BaseController;
 import homex.common.framework.BaseService;
 import homex.mapper.UserEntityMapper;
 import homex.util.HashKit;
+import homex.util.ImageBase64Utils;
 
 @Component
 public class LoginService extends BaseService{
@@ -31,6 +34,17 @@ public class LoginService extends BaseService{
 			return Result.buildFailMessage(msg);
 		}
 		UserEntity user = userDao.findUserByEmail(username);
+		if(StrUtil.isNotBlank(user.getUserAvtar())) {
+			String imageToBase64;
+			try {
+				imageToBase64 = ImageBase64Utils.readFile(user.getUserAvtar());
+				log.info("【转换的字节为："+imageToBase64+"】");
+				user.setUserAvtar(imageToBase64);
+			} catch (IOException e) {
+				log.info(e.getMessage());
+				//return Result.buildFailMessage("file is error");
+			}
+		}
 		if(ObjectUtil.isNull(user)) {
 			String msg = "user does not exist" ;
 			log.info("【"+msg+"】");
@@ -46,6 +60,12 @@ public class LoginService extends BaseService{
 			log.info("【"+msg+"】");
 			return Result.buildFailMessage(msg);
 		}
+		if(!encodepassword.equals(user.getUserPassword())) {
+			String msg = "password is error";
+			log.info("【"+msg+"】");
+			return Result.buildFailMessage(msg);
+		}
+		user.setSessionId("HOMEX_"+StrUtil.uuid());
 		if(encodepassword.equals(user.getUserPassword()));	
 			return Result.buildSuccessResult("登录成功", user);
 	}

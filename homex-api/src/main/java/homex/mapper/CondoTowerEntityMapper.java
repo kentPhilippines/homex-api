@@ -42,7 +42,8 @@ public interface CondoTowerEntityMapper {
 	int findCondoTowerId(@Param("condotower") String condotower);
     @Select("select count(1) from home_condo_tower where condo_id = #{condotower} ")
     List<CondoTowerEntity> findCondoByTowerId(@Param("condo_id") String condoId);
-    @Select("select * from home_condo_tower where tower_id = #{condotower} ")
+    @Select("select id as id, condo_id as comdoId, condo_name as condoName, tower_id as towerId, "
+    		+ "tower_name towerName , create_time as createTime, updata_time as updateTime, status as status from home_condo_tower where tower_id = #{condotower} ")
     CondoTowerEntity findTowerId(@Param("condotower") String condotower);
 
     

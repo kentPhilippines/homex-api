@@ -10,7 +10,7 @@ import homex.common.bean.Result;
 import homex.service.NoticeService;
 
 @RestController
-@RequestMapping("/notice")
+@RequestMapping("/dev-api/notice")
 public class NoticeApi {
 	@Autowired NoticeService noticeServiceImpl;
 	/**

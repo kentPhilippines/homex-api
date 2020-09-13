@@ -16,7 +16,7 @@ eureka :
    # status-page-url : c.biancheng.net
 spring:
   application:
-    name: otc-zuul-server
+    name: homex-zuul-server
 zuul:
   strip-prefix: false
   routes:

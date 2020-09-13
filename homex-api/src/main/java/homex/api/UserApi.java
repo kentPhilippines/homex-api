@@ -64,16 +64,16 @@ public class UserApi extends BaseController{
 	 * @param password				密码
 	 * @return
 	 */
-	@PutMapping("/editAccount")
+	@PostMapping("/editAccount")
 	public Result editAccount(
-			String userID 
+			String userId 
 			, String userName 
 			, String userAvtar 
 			, String userEmail 
 			, String userPhone 
 			, String password 
 			) {
-		Result user = userServiceImpl.editAccount(userID,userName,userAvtar,userEmail,userPhone,password);
+		Result user = userServiceImpl.editAccount(userId,userName,userAvtar,userEmail,userPhone,password);
 		return user;
 	}
 	

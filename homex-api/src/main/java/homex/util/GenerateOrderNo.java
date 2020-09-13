@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class GenerateOrderNo {
+	private  static String img = "IMG";
 
     // 使用单例模式，不允许直接创建实例
     private GenerateOrderNo() {
@@ -27,11 +28,13 @@ public class GenerateOrderNo {
     private static String getNowDateStr() {
         return sdf.format(new Date());
     }
-
+    public static  String imgNo() {
+    	return Generate(img);
+    }
     /*
      * 生成一个订单号
      */
-    public synchronized String Generate(String param) {
+    public static synchronized String Generate(String param) {
         int random = RandomUtils.nextInt(1,999999);
         int countInteger = 6 - String.valueOf(random).length();// 算补位
         String extra = "";// 补字符串
